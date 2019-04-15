@@ -11,5 +11,8 @@ class tour extends Model
         'name',
     ];
 
-    
+   	public function imagenes()
+	{
+		return $this->hasMany(imagenes::class, 'id_tour');
+	}
 }

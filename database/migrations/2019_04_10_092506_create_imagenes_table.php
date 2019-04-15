@@ -15,8 +15,12 @@ class CreateImagenesTable extends Migration
     {
         Schema::create('imagenes', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
             $table->string('url');
+            $table->integer('pitch');
+            $table->integer('yaw');
             $table->integer('id_tour')->unsigned();
+
             $table->timestamps();
         });
     }

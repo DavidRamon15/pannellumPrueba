@@ -8,13 +8,13 @@ class imagenes extends Model
 {
 	protected $table= 'imagenes';
     protected $fillable = [
-        'url',
+        'name','url','pitch','yaw','id_tour'
     ];
 
 
 
     public function tours()
     {
-    	return $this->belongto(tour::class);
+    	return $this->belongsTo(tour::class, 'id_tour');
     }
 }

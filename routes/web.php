@@ -18,3 +18,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::name('tours_path')->get('/tours' ,'toursController@index');
+Route::name('tour_path')->get('/tour/{tour}','toursController@show');
