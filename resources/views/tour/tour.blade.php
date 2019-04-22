@@ -17,22 +17,31 @@
  
 <div id="panorama"></div>
 <script>
+
+
+
 pannellum.viewer('panorama', {   
     "default": {
-        "firstScene": "{{$escenas[0]->name}}",
+        "firstScene": "Scene",
         "author": "Matthew Petroff",
         "sceneFadeDuration": 1000,
         "autoLoad": true
     },
-    for( var i=0; i<2 ;i++){
-        "scenes": {
-            "{{$escenas[i]->name}}": {
+    "Scene": {
+
+<?php
+    for( $i=0;$i <=count($escenas)-1;$i++)
+       {
+?>
+       
+        "{{$escenas[$i]->name}}": {
                 "title": "Mason Circle",
                 "hfov": 110,
                 "pitch": -3,
                 "yaw": 117,
                 "type": "equirectangular",
-                "panorama": "{{ asset('imagenes/'.$escenas[0]->url) }}",
+                "panorama": "{{ asset('imagenes/'.$escenas[$i]->url) }}",
+             
                 "hotSpots": [
                     {
                         "pitch": -2.1,
@@ -44,11 +53,10 @@ pannellum.viewer('panorama', {
                 ]
             },
 
-        }
-            
-        }
-    
+    <?php } ?>   
+    }
 });
+
 </script>
 
 </body>
