@@ -18,52 +18,52 @@
  <div id ="pruebadiv"><button id="prueba">sfsdg</button></div>
 <div id="panorama"></div>
 <script>
-
-
-
-  $(document).ready(function () {
-  
-              $.ajax({
-                url: "{{route('tour_path',$tour->id)}}", //url de donde obtener los datos
-                dataType: 'json', //tipo de datos retornados
-                type: 'post' //enviar variables como post
-                
-              })
-  });
-
-
-    
-/*pannellum.viewer('panorama', {   
-    "default": {
-        "firstScene":  ,
-        "author": "Matthew Petroff",
-        "sceneFadeDuration": 1000
-    },
-    "scenes": {
-       
-            "$escenas[]->name": {
-                "title": "$escenas[0]->names",
-                "hfov": 110,
-                "pitch": -3,
-                "yaw": 117,
-                "type": "equirectangular",
-                "panorama": "{{ asset('imagenes/'.$escenas[0]->url) }}",
-                "hotSpots": [
-                    {
-                        "pitch": -2.1,
-                        "yaw": 132.9,
-                        "type": "scene",
-                        "text": "Spring House or Dairy",
-                        "sceneId": "house"
-                    }
-                ]
-            },
-
-//aqui debe acabar el for
-    }
-
+   var i ;
+   $.ajax({
+                data : {!! $json !!},
+                headers : {"X-CSRF-Token":"{{ csrf_token() }} " },
+                url: "{{ route('datos_tour',$tour->id) }} ", 
+                dataType: 'json', 
+                type: 'get', 
+                success: function(data) {
+                    console.log(JSON.stringify(data));
+               
+                    alert(data[0].id);
+  }
 });
-*/
+
+   pannellum.viewer('panorama', {   
+                    "default": {
+                        "firstScene": "circle",
+                        "author": "Matthew Petroff",
+                        "sceneFadeDuration": 1000
+                    },
+       
+                "scenes": {
+                
+                  "hola" : {
+                        "title": "Mason Circle",
+                        "hfov": 110,
+                        "pitch": -3,
+                        "yaw": 117,
+                        "type": "equirectangular",
+                        "panorama": "/images/from-tree.jpg",
+                        "hotSpots": [
+                            {
+                                "pitch": -2.1,
+                                "yaw": 132.9,
+                                "type": "scene",
+                                "text": "Spring House or Dairy",
+                                "sceneId": "house"
+                            }
+                        ]
+                    },
+                
+                }   
+    });
+
+ 
+
 </script>
 
 </body>

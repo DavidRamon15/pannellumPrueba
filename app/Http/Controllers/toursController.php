@@ -16,41 +16,21 @@ class toursController extends Controller
 
     public function show($id)
     {
-        $tour = tour::find($id)->first();
-
-        $escenas = $tour->imagenes->all();
-     
-        for ($i=0;$i<=count($escenas)-1;$i++)
-        {
-        $data =  array( 
-            'id' =>  $escenas[0]->id ,
-            'name' =>  $escenas[0]->name, 
-            'url' =>  $escenas[0]->url
-        
-        ); 
-    
-    }
-        var_dump($data);
-
-    	//$imagenes  = $tour->imagenes->get();
-
-        
+       $tour = tour::find($id)->first();
+       $escenas = $tour->imagenes->all();
+       $json = json_encode($escenas);
+       
         //return $tour->imagenes->toJson();
            
-    	return view('tour.tour',compact("escenas","tour"));
+    	return view('tour.tour',compact('tour','json'));
     }
-    public function getdatos(Request  $id)
-    {
-        $tour = tour::find($id)->first();
+    public function get_datos($id){
 
-        $escenas = $tour->imagenes->all();
-
+          $tour = tour::find($id)->first();
+       $escenas = $tour->imagenes->all();
+       $json = json_encode($escenas);
         
-
-           return json_encode($escenas);
-
-           
         
-
+       return $json;
     }
 }
