@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\tour;
 use App\imagenes;
+
+use App\hotspots;
 class toursController extends Controller
 {
     public function index()
@@ -18,16 +20,24 @@ class toursController extends Controller
     {
        $tour = tour::find($id)->first();
        $escenas = $tour->imagenes->all();
+
+
+       $imagenes =imagenes::find($escenas[0]->id)->first();
+       $hotspots = $imagenes->hotspots->all();
+       var_dump($hotspots);
+      
        $json = json_encode($escenas);
        
+
         //return $tour->imagenes->toJson();
            
-    	return view('tour.tour',compact('tour','json'));
+    	return view('tour.tour',compact('tour','escenas','json'));
     }
     public function get_datos($id){
 
-          $tour = tour::find($id)->first();
+        $tour = tour::find($id)->first();
        $escenas = $tour->imagenes->all();
+
        $json = json_encode($escenas);
         
         

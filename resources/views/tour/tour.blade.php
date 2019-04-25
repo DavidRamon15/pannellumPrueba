@@ -18,7 +18,10 @@
  <div id ="pruebadiv"><button id="prueba">sfsdg</button></div>
 <div id="panorama"></div>
 <script>
-   var i ;
+   
+
+
+
    $.ajax({
                 data : {!! $json !!},
                 headers : {"X-CSRF-Token":"{{ csrf_token() }} " },
@@ -27,41 +30,52 @@
                 type: 'get', 
                 success: function(data) {
                     console.log(JSON.stringify(data));
-               
-                    alert(data[0].id);
-  }
-});
 
-   pannellum.viewer('panorama', {   
+
+                pannellum.viewer('panorama', {   
                     "default": {
-                        "firstScene": "circle",
+                        "firstScene": data[0].id,
                         "author": "Matthew Petroff",
                         "sceneFadeDuration": 1000
                     },
        
                 "scenes": {
                 
-                  "hola" : {
-                        "title": "Mason Circle",
-                        "hfov": 110,
-                        "pitch": -3,
-                        "yaw": 117,
-                        "type": "equirectangular",
-                        "panorama": "/images/from-tree.jpg",
-                        "hotSpots": [
-                            {
-                                "pitch": -2.1,
-                                "yaw": 132.9,
-                                "type": "scene",
-                                "text": "Spring House or Dairy",
-                                "sceneId": "house"
+
+        <?php  
+        for($i=0;$i<=count($escenas)-1; $i++){
+            echo (" $i :  {
+                        'title': 'Mason Circle',
+                        'hfov': 110,
+                        'pitch': -3,
+                        'yaw': 117,
+                        'type': 'equirectangular',
+                        'panorama': '/imagenes/'+data[$i].url,
+                        'hotSpots': [
+                            ");
+            echo (  "       {
+                                 'pitch': -2.1,
+                                'yaw': 132.9,
+                                'type': 'scene',
+                                'text': 'Spring House or Dairy',
+                                'sceneId': '0'
                             }
                         ]
                     },
+            "); 
+        }
+
+
+        ?>
+                  
                 
                 }   
     });
 
+  }
+});
+
+  
  
 
 </script>

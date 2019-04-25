@@ -17,4 +17,8 @@ class imagenes extends Model
     {
     	return $this->belongsTo(tour::class, 'id_tour');
     }
+    public function hotspots()
+	{
+		return $this->hasMany(hotspots::class, 'imagenes_id');
+	}
 }
