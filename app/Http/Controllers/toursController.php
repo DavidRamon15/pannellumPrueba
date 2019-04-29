@@ -20,12 +20,10 @@ class toursController extends Controller
     {
        $tour = tour::find($id)->first();
        $escenas = $tour->imagenes->all();
-
-
-       $imagenes =imagenes::find($escenas[0]->id)->first();
-       $hotspots = $imagenes->hotspots->all();
-       var_dump($hotspots);
-      
+        
+      $imagenes = imagenes::find(0);
+      $hotspots = hotspots::where('imagenes_id', '=' ,$imagenes);
+        var_dump($hotspots);
        $json = json_encode($escenas);
        
 
