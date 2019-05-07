@@ -10,12 +10,12 @@
    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <style>
     #panorama {
-        height: 100vh;
+        height: 95vh;
     }
     </style>
 </head>
 <body>
- <div id ="pruebadiv"><button id="prueba">sfsdg</button></div>
+ 
 <div id="panorama"></div>
 <script>
    
