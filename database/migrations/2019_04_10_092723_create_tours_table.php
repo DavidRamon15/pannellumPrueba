@@ -16,6 +16,9 @@ class CreateToursTable extends Migration
         Schema::create('tours', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('first_scene');
+            $table->string('author');
+            $table->string('fade_duration');
             $table->timestamps();
         });
     }

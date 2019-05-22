@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-<h1>TOUR </h1>
+<h1>Hotspots De la Escena</h1>
 <div class="row" >
 	<div class="col-md-12">
 
@@ -17,7 +17,9 @@
 		      <th scope="col">text</th>
 		      <th scope="col">url</th>
 		      <th scope="col">scene_id</th>
+		      <th scope="col">imagenes_id</th>
 		      <th scope="col">Modificar</th>
+		      <th scope="col">Modificar PitchYaw</th>
 		      <th scope="col">Eliminar</th>
 		     
 
@@ -33,9 +35,24 @@
 			     <td>{{$hotspot->text}}</td>
 			     <td>{{$hotspot->url}}</td>
 			     <td>{{$hotspot->scene_id}}</td>
+			     <td>{{$hotspot->imagenes_id}}</td> 
 			
-			       <td><a type="button" class="btn btn-primary" href="{{route('modificar_hotspot_path',['id_escena' => $escena->id_tour,
-			     																					 s ])}}">Modificar</a></td></a></td>
+			   <td><a type="button" class="btn btn-primary" 
+			   	href="{{route('modificar_hotspot_path',[
+			   	'id_escena' => $escena->id_tour,
+			    'id_hotspot' => $hotspot->id] )}}"
+			    >Modificar</a></td>
+			      <td><a type="button" class="btn btn-primary" 
+			   	href="{{route('modificar_hotspotPitchYaw_path',[
+			   	'id_escena' => $escena->id_tour,
+			    'id_hotspot' => $hotspot->id] )}}"
+			    >Modificar PitchYaw</a></td>
+				<td><form action="{{ route('delete_hotspot_path',[$hotspot->id , $escena->id ] )}}" method="POST">
+					{{ csrf_field()}}
+					{{method_field('delete')}}
+				<button type="submit" class="btn btn-danger ">Delete</button>
+
+				</form></td>
 
 			
 

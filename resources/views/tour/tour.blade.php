@@ -17,67 +17,67 @@
 <body>
  
 <div id="panorama"></div>
+<?php 
+
+
+echo (count($escenas));
+?>
 <script>
+   
+   
+ // necesito 
+
+
+
+pannellum.viewer('panorama', {   
+
+    <?php
+
+    echo( " 'default': {
+        'firstScene': '".$tour->first_scene."',
+        'author': 'Matthew Petroff',
+        'sceneFadeDuration': 1000
+    },
+
+    'scenes': {
+
+        ");
    
 
 
-
-   $.ajax({
-                data : {!! $json !!},
-                headers : {"X-CSRF-Token":"{{ csrf_token() }} " },
-                url: "{{ route('datos_tour',$tour->id) }} ", 
-                dataType: 'json', 
-                type: 'get', 
-                success: function(data) {
-                    console.log(JSON.stringify(data));
-
-
-                pannellum.viewer('panorama', {   
-                    "default": {
-                        "firstScene": data[0].id,
-                        "author": "Matthew Petroff",
-                        "sceneFadeDuration": 1000
-                    },
-       
-                "scenes": {
-                
-
-        <?php  
         for($i=0;$i<=count($escenas)-1; $i++){
-            echo (" $i :  {
-                        'title': 'Mason Circle',
+            echo ("".$escenas[$i]->name." :  {
+                        'title': '".$escenas[$i]->title."',
                         'hfov': 110,
-                        'pitch': -3,
-                        'yaw': 117,
+                        'pitch': '".$escenas[$i]->pitch."',
+                        'yaw':  '".$escenas[$i]->yaw."',
                         'type': 'equirectangular',
-                        'panorama': '/imagenes/'+data[$i].url,
+                        'panorama': '/imagenes/".$escenas[$i]->panorama."',
                         'hotSpots': [
                             ");
-            echo (  "       {
-                                 'pitch': -2.1,
-                                'yaw': 132.9,
-                                'type': 'scene',
-                                'text': 'Spring House or Dairy',
-                                'sceneId': '0'
-                            }
-                        ]
-                    },
+
+             for($k=0;$k<=count($collection[$i])-1; $k++){
+            echo (  " {
+                                 'pitch': '".$collection[$i][$k]->pitch."',
+                                'yaw': '".$collection[$i][$k]->yaw."',
+                                'type': '".$collection[$i][$k]->type."',
+                                'text': '".$collection[$i][$k]->text."',
+                                'sceneId': '".$collection[$i][$k]->scene_id."',
+                            },
+                       
             "); 
         }
 
+            echo (" ]
+                    },
+                    ");
 
-        ?>
-                  
-                
-                }   
+
+        }
+            ?>
+        }
     });
-
-  }
-});
-
-  
- 
-
+        
 </script>
 
 </body>

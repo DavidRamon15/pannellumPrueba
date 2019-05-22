@@ -32,10 +32,11 @@ class imagenesController extends Controller
     public function store(Request $request, $id)
     {
 
-      if($request->file('imagen')){
-  
+
+      if($request->file('panorama')){
+          
       //obtenemos el campo file definido en el formulario
-       $file = $request->file('imagen');
+       $file = $request->file('panorama');
           
        //obtenemos el nombre del archivo
        $nombre = $file->getClientOriginalName();
@@ -47,11 +48,15 @@ class imagenesController extends Controller
        $escenas = $tour->imagenes->all();
 
         imagenes::create([
+        'id_tour' =>request('id_tour'),
         'name' =>request('name'),
-        'url' =>$nombre,
+        'title' =>request('title'),
+        'hfov' =>request('hfov'),
         'pitch' =>request('pitch'),
         'yaw' =>request('yaw'),
-        'id_tour' =>request('id_tour')
+        'type'=>request('type'),
+        'panorama' =>$nombre,
+        
       ]);
 
 
@@ -60,13 +65,14 @@ class imagenesController extends Controller
 
     }
  
-     public function delete($id)
+     public function delete($id,$id_tour)
      {
+
         $imagen = imagenes::find($id);
-        
         $imagen->delete($id);
+
       
-        return redirect()->route('tours_path');
+        return redirect()->route('imagenes_path',compact('id_tour'));
     }
     public function edit($id_escena, $id_tour)
     {
@@ -81,19 +87,86 @@ class imagenesController extends Controller
         return view("imagenes.edit",compact("tour","escena"));
     }
     public function update(Request $request , imagenes $escena)
+      {
+       
+       $escena = imagenes::find($request->id);
+      
+        $tour = tour::find($request->get('id_tour'));
+        $escenas = $tour->imagenes->all();
+      
+        
+
+       if($request->file('imagen')){
+  
+      //obtenemos el campo file definido en el formulario
+       $file = $request->file('imagen');
+          
+       //obtenemos el nombre del archivo
+       $nombre = $file->getClientOriginalName();
+
+       //indicamos que queremos guardar un nuevo archivo en el disco local
+       \Storage::disk('public')->put($nombre,  \File::get($file));
+
+          
+      $escena->panorama = $nombre;
+    }
+    else
     {
-        $escena->name = $request->get('name');
-        $escena->url = $request->get('url');
-        $escena->pitch = $request->get('pitch');
-        $escena->yaw = $request->get('yaw');
-        $escena->id_tour =$request->get('id_tour');
+        $escena->panorama = $escena->panorama;
+    }
+
+    $escena->name = $request->get('name');
+    $escena->title = $request->get('title');
+    $escena->hfov = $request->get('hfov');
+    $escena->pitch =$escena->pitch;
+    $escena->yaw = $escena->yaw;
+    $escena->type = $request->get('type');
+    $escena->id_tour =$request->get('id_tour');
 
 
         $escena->save();
 
         $escena->update();
-
-        return redirect()->route('tours_path');
         
+        return redirect()->route('imagenes_path' ,compact('escenas','tour'));
+        
+       
+    }
+    public function editPitchYaw($id_escena, $id_tour)
+    {
+       $tour = tour::find($id_tour);
+        
+
+       $escena = imagenes::find($id_escena);
+
+       
+
+        return view("imagenes.editPitchYaw",compact("tour","escena"));
+    }
+    public function updatePitchYaw(request $request ,imagenes $escena)
+    {
+        
+      $tour = tour::find($escena->id_tour);
+ 
+       $escena = imagenes::find($request->id);
+
+     $escena = imagenes::find($request->id);
+
+      $escena->name = $escena->name;
+      $escena->id_tour = $escena->id_tour;
+      $escena->title = $escena->title;
+      $escena->hfov = $escena->hfov;
+      $escena->type = $escena->type;
+      $escena->panorama =$escena->panorama;
+      $escena->pitch = $request->get('pitch');
+      $escena->yaw = $request->get('yaw');
+
+      $escena->save();
+
+      $escena->update();
+
+     
+        
+       return redirect()->route('imagenes_path' ,compact('escena'));
     }
 }

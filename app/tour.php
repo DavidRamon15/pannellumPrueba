@@ -8,8 +8,7 @@ class tour extends Model
 {
 	protected $table='tours';
     protected $fillable = [
-        'name',
-    ];
+        'name','first_scene','author','fade_duration'    ];
 
    	public function imagenes()
 	{

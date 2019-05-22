@@ -39,15 +39,30 @@ Route::name('imagenes_path')->get('/escenas/{tour}' ,'imagenesController@index')
 
 Route::name('create_imagenes_path')->get('/escenas/create/{tour}','imagenesController@create');
 Route::name('store_imagen_path')->post('/escenas/{tour}','imagenesController@store');
-Route::name("delete_imagen_path")->delete("/escenas/{id}","imagenesController@delete");
+Route::name("delete_imagen_path")->delete("/escenas/{id}/{id_tour}","imagenesController@delete");
 
 
 Route::name('modificar_imagen_path')->get('/escenas/{id_tour}/{id_escena}/modificar','imagenesController@edit');
-Route::name('update_imagen_path')->put('/escenas/{tour}' ,'imagenesController@update');
+
+Route::name('modificar_imagenPitchYaw_path')->get('/escenas/{id_tour}/{id_escena}/modificarPitchYaw','imagenesController@editPitchYaw');
+
+Route::name('update_imagen_path')->put('/escenas/update/{tour}' ,'imagenesController@update');
+
+Route::name('update_imagenPitchYaw_path')->put('/escenas/update/{tour}/modificarPitchYaw' ,'imagenesController@updatePitchYaw');
 
 //Hotspots
 
 Route::name('hotspots_path')->get('/hotspots/{escena}' ,'hotspotsController@index');
 
 Route::name('create_hotspot_path')->get('/hotspots/create/{escena}','hotspotsController@create');
+Route::name('getData_hotspot_path')->post('/hotspots/createPitchYaw/{escena}','hotspotsController@getData');
 Route::name('store_hotspot_path')->post('/hotspots','hotspotsController@store');
+
+Route::name("delete_hotspot_path")->delete("/hotspots/{id}/{id_escena}/delete","hotspotsController@delete");
+
+Route::name('modificar_hotspot_path')->get('/hotspots/{id_escena}/{id_hotspots}/modificar','hotspotsController@edit');
+
+Route::name('modificar_hotspotPitchYaw_path')->get('/hotspots/{id_escena}/{id_hotspots}/modificarPitchYaw','hotspotsController@editPitchYaw');
+
+Route::name('update_hotspot_path')->put('/hotspots/update/{tour}' ,'hotspotsController@update');
+Route::name('update_hotspotPitchYaw_path')->put('/hotspots/update/{tour}/modificarPitchYaw' ,'hotspotsController@updatePitchYaw');

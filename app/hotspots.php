@@ -13,7 +13,7 @@ class hotspots extends Model
 
 
 
-    public function imagenes()
+    public function imagen()
     {
     	return $this->belongsTo(imagenes::class, 'imagenes_id');
     }

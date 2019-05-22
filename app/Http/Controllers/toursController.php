@@ -7,29 +7,37 @@ use App\tour;
 use App\imagenes;
 
 use App\hotspots;
+
+use Illuminate\Support\Facades\DB;
 class toursController extends Controller
 {
     public function index()
     {
     	 
     	 $tours = Tour::all();
-        return view('tour.index',compact('tours'));
+       $imagenes = imagenes::all();
+       $hotspots = hotspots::all();
+        return view('tour.index',compact('tours','imagenes','hotspots'));
     }
 
-    public function show($id)
+    public function show($id_tour)
     {
-       $tour = tour::find($id);
-       $escenas = $tour->imagenes->all();
-        
-      $imagenes = imagenes::find(0);
-      $hotspots = hotspots::where('imagenes_id', '=' ,$imagenes);
      
-       $json = json_encode($escenas);
-       
-        var_dump($json);
-        //return $tour->imagenes->toJson();
-           
-    	//return view('tour.tour',compact('tour','escenas','json'));
+       $tour = tour::find($id_tour);
+       $escenas = $tour->imagenes->all();
+
+        $collection = collect([]);
+
+      foreach ($escenas as $escena) {
+        $collection->push($escena->hotspots);
+      }
+      
+      
+
+
+   
+          
+    	return view('tour.tour',compact('tour','escenas','collection'));
     }
     public function get_datos($id)
     {
@@ -54,6 +62,9 @@ class toursController extends Controller
 
        tour::create([
         'name' =>request('name'),
+        'first_scene'=>request('first_scene'),
+        'author'=>request('author'),
+        'fade_duration'=>request('fade_duration'),
       ]);
       return redirect()->route('tours_path');
     }
@@ -72,6 +83,9 @@ class toursController extends Controller
     public function update(Request $request, Tour $tour)
     {
         $tour->name = $request->get('name');
+        $tour->first_scene = $request->get('first_scene');
+        $tour->author = $request->get('author');
+        $tour->fade_duration = $request->get('fade_duration');
         $tour->save();
 
         $tour->update();

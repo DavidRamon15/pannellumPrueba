@@ -8,7 +8,7 @@ class imagenes extends Model
 {
 	protected $table= 'imagenes';
     protected $fillable = [
-        'name','url','pitch','yaw','id_tour'
+       'id_tour', 'name','title','hfov','pitch','yaw','type','panorama',
     ];
 
 

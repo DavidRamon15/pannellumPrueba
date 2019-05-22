@@ -13,12 +13,12 @@ function seleccionTipo()
       {
           document.getElementById('div_url').style.visibility = 'visible';
        document.getElementById('div_scene_id').style.visibility ='hidden';
-        
+        document.getElementById('div_text').style.visibility = 'visible';
 
       }else if (tipo == "scene"){
        document.getElementById('div_url').style.visibility = 'hidden';
        document.getElementById('div_scene_id').style.visibility ='visible';
-      
+        document.getElementById('div_text').style.visibility = 'hidden';
       }
   }
 
@@ -35,43 +35,56 @@ function seleccionTipo()
         <div class="panel-body">
        
              
-              <form id='form' action="{{route('store_hotspot_path' )}}" method="POST">
-                  {{ csrf_field() }}
-                 
+              <form id='form' action="{{route('update_hotspot_path',$hotspot->id )}}" method="POST">
+                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="_method" value="PUT">
+                  <div class="form-group ">
+                    <label for="name">Pitch:</label>
+                    <input type="string" class="form-control" id="pitch" name="pitch" value="{{ $hotspot->pitch}}">
+                  </div>
+                   <div class="form-group ">
+                    <label for="name">Yaw:</label>
+                    <input type="string" class="form-control" id="yaw" name="yaw" value="{{ $hotspot->yaw}}">
+                  </div>
                   <div class="form-group ">
                     <label for="tipo">Selecciona un tipo de Hotspots :</label><br>
-                   <select name="select" id='type' onchange="seleccionTipo();">
+                   <select name="select" id='type' onchange="seleccionTipo(); ">
                       <option value="info" > Panel Informativo</option> 
                       <option value="scene" selected>Salto de Escena</option>
                    </select>
                   </div>
                    <div class="form-group" id="div_text" >
                     <label for="name">Contenido del panel Informativo</label>
-                    <textarea class="form-control" id="text" name="text" placeholder="Introduce texto" ></textarea> 
+                    <textarea class="form-control" id="text" name="text" >{{ $hotspot->text}}</textarea> 
                   </div>
 
-                   <div class="form-group " id='div_url' style = "visibility : hidden">
+                   <div class="form-group " id='div_url'  style = "visibility : hidden">
                     <label for="name">url</label>
-                    <input type="string" class="form-control" id="url" name="url" placeholder="Introduce url de la imagen en caso de ser tipo info">
+                    <input type="string" class="form-control" id="url" name="url" value="{{ $hotspot->url}}">
                   </div>
 
-                  
                   <div class="form-group" id="div_scene_id" >
                     <label>Scene_id:
                       <select id="scene_id" name="scene_id">
-                        <?php foreach ($escenas as $esc): ?>
-                           <option value="{{$esc->name}}">{{$esc->name}}</option>
-                        <?php endforeach ?>
+                        
+                        <?php foreach ($escenas as $esc): 
+
+                          if ($hotspot->scene_id == $esc->name){
+                          echo("<option value=' $esc->name ' selected >$esc->name</option>");
+                          }else{
+                          echo("<option value='$esc->name ' >$esc->name</option>");
+                          }
+                        
+                         endforeach ?>
                         
                         
                       </select>
                   </div>
 
-
-                    <input type="hidden" class="form-control" id="id_imagen" name="id_imagen" value='{{ $escena->id_escena }}'  readonly>
+                    <input type="hidden" class="form-control" id="id_imagen" name="id_imagen" value='{{ $hotspot->imagenes_id }}'  readonly>
          
-                <input type="hidden" class="form-control" id="pitch" name="pitch" value="{{ $localizacion['pitch'] }}"  readonly>
-                <input type="hidden" class="form-control" id="yaw" name="yaw" value="{{ $localizacion['yaw'] }}"  readonly>
+               
+
                       <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                           <button type="submit" class="btn btn-primary">Enviar</button>

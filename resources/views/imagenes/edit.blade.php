@@ -10,30 +10,34 @@
       <div class="panel-heading"> Modificiar Imagenes</div>
         <div class="panel-body">
           <form method="POST" action="{{route('update_imagen_path',['id' => $escena->id])}}" accept-charset="UTF-8" enctype="multipart/form-data">
-              
+               <input type="hidden" name="_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="_method" value="PUT">
+                   <input type="hidden" id="id" name="id" value="{{$escena->id}}">
             <div class="form-group ">
-              <label for="name">Nombre del Imagen</label>
-              <input type="string" class="form-control" id="name" name="name" value="{{$escena->name}}">
+              <label for="name">Nombre de la Escena</label>
+              <input type="string" class="form-control" id="name" name="name" value="{{ $escena->name }}">
             </div>
-            
+            <div class="form-group ">
+              <label for="name">Titulo de la Escena</label>
+              <input type="string" class="form-control" id="title" name="title" value="{{ $escena->title }}">
+            </div>
+            <div class="form-group ">
+              <label for="name">Titulo de la Escena</label>
+              <input type="number" class="form-control" id="hfov" name="hfov" value="{{ $escena->hfov }}">
+            </div>
              <div class="form-group ">
-              <label for="name">pitch</label>
-              <input type="number" class="form-control" id="pitch" name="pitch" value="{{$escena->pitch}}">
-            </div>
-             <div class="form-group ">
-              <label for="name">yaw</label>
-              <input type="number" class="form-control" id="yaw" name="yaw" value="{{$escena->yaw}}">
-            </div>
+                <label for="type">Seleccion el Tipo de Escena :</label>
+                  <select name="type" id='type'>
+                      <option value="equirectangular" >Equirectangular</option> 
+                   </select>
               </div>
-                <!-- introducir id tour-->
                 <input type="hidden" class="form-control" id="id_tour" name="id_tour" value='{{ $tour->id }}'  readonly>
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                {{ method_field('PUT') }}
+             
             
             <div class="form-group">
               <label class="col-md-4 control-label">Nuevo Archivo</label>
               <div class="col-md-6">
-                <input type="file" name="imagen"  value="/public/imagenes/{{$escena->url}}" >
+                <input type="file" name="imagen" default="/imagenes/{{$escena->panorama}}" >
               </div>
             </div>
 

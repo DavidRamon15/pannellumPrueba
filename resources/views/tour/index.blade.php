@@ -12,6 +12,9 @@
 		    <tr>
 		      <th scope="col">Id</th>
 		      <th scope="col">Nombre</th>
+		      <th scope="col">Primera Escena</th>
+		      <th scope="col">Autor</th>
+		      <th scope="col">Fade Duration</th>
 		      <th scope="col">Visita</th>
 		      <th scope="col">Imagenes</th>
 		      <th scope="col">Modificar</th>
@@ -25,7 +28,12 @@
 		    <tr>
 			     <th scope="row">{{$tour->id}}</th>
 			     <td>{{$tour->name}}</td>
-			     <td><a type="button" class="btn btn-primary" href="{{route('tour_path', $tour->id)}}">VER TOUR</a></td>
+			     <td>{{$tour->first_scene}}</td>
+			     <td>{{$tour->author}}</td>
+			     <td>{{$tour->fade_duration}}</td>
+			     <td><a type="button" class="btn btn-primary" 
+			     	href="{{route('tour_path', $tour->id)}}">
+			     VER TOUR</a></td>
 			     <td><a type="button" class="btn btn-primary" href="{{route('imagenes_path',$tour->id)}}">Imagenes</a></td>
 			     <td><a type="button" class="btn btn-primary" href="{{route('modificar_tour_path',['tour' => $tour ->id])}}">Modificar</a></td>
 				<td><form action="{{ route('delete_tour_path',['tour'=>$tour->id ])}}" method="POST">
