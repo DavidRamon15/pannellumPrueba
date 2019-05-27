@@ -11,6 +11,7 @@ use App\tour;
 use File;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 class imagenesController extends Controller
 {
     public function index($id)
@@ -27,11 +28,33 @@ class imagenesController extends Controller
     $tour = tour::find($id);
 
 
+
       return view('imagenes.create',compact('tour'));
 	}
     public function store(Request $request, $id)
     {
+       $data = $request->all();
 
+      $rules = array(
+     'id_tour'  => 'required', 
+     'name'  => 'required',
+     'title'  => 'required',
+     'hfov'  => 'required',
+     'pitch'  => 'required',
+     'yaw'  => 'required',
+     'type'  => 'required',
+     'panorama'  => 'required', 
+      );
+    
+      $valida = validator::make($data,$rules);
+
+      if($valida->fails())
+      {
+        return redirect()->back()
+              ->withErrors($valida->errors())
+              ->WithInput($data);
+
+      }
 
       if($request->file('panorama')){
           
@@ -76,6 +99,7 @@ class imagenesController extends Controller
     }
     public function edit($id_escena, $id_tour)
     {
+
        
        $tour = tour::find($id_tour);
         
@@ -88,7 +112,27 @@ class imagenesController extends Controller
     }
     public function update(Request $request , imagenes $escena)
       {
-       
+           $data = $request->all();
+
+      $rules = array(
+     'id_tour'  => 'required', 
+     'name'  => 'required',
+     'title'  => 'required',
+     'hfov'  => 'required',
+     'type'  => 'required',
+    
+      );
+    
+      $valida = validator::make($data,$rules);
+
+      if($valida->fails())
+      {
+        return redirect()->back()
+              ->withErrors($valida->errors())
+              ->WithInput($data);
+
+      }
+
        $escena = imagenes::find($request->id);
       
         $tour = tour::find($request->get('id_tour'));

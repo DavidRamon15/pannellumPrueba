@@ -16,8 +16,10 @@ pannellum.viewer('panorama', {
 </script>
   <div class="col-md-10 col-md-offset-1">
     <div class="panel panel-default">
-      <div class="panel-heading">Agregar una Escena</div>
+      <div class="panel-heading"><h2>Agregar una Escena</h2></div>
         <div class="panel-body">
+
+          @include('admin.partials.messagesError')
           <form method="POST" action="{{route('store_imagen_path',$tour->id )}}"  accept-charset="UTF-8" enctype="multipart/form-data">
               
               <div class="form-group ">

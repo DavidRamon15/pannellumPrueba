@@ -9,6 +9,7 @@
     <div class="panel panel-default">
       <div class="panel-heading"> Modificiar Imagenes</div>
         <div class="panel-body">
+          @include('admin.partials.messagesError')
           <form method="POST" action="{{route('update_imagen_path',['id' => $escena->id])}}" accept-charset="UTF-8" enctype="multipart/form-data">
                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                <input type="hidden" name="_method" value="PUT">

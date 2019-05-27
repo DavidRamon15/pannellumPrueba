@@ -9,6 +9,8 @@ use App\imagenes;
 use App\hotspots;
 
 use Illuminate\Support\Facades\DB;
+
+use Illuminate\Support\Facades\Validator;
 class toursController extends Controller
 {
     public function index()
@@ -31,11 +33,6 @@ class toursController extends Controller
       foreach ($escenas as $escena) {
         $collection->push($escena->hotspots);
       }
-      
-      
-
-
-   
           
     	return view('tour.tour',compact('tour','escenas','collection'));
     }
@@ -57,8 +54,27 @@ class toursController extends Controller
 
   
     }
-    public function store(Request $request )
+    public function store(request $request )
     {
+      $data = $request->all();
+
+      $rules = array(
+       'name' => 'required' ,
+        'first_scene' => 'required',
+        'author'  => 'required',
+        'fade_duration' => 'required'   
+      );
+    
+      $valida = validator::make($data,$rules);
+
+      if($valida->fails())
+      {
+        return redirect()->back()
+              ->withErrors($valida->errors())
+              ->WithInput($data);
+
+      }
+
 
        tour::create([
         'name' =>request('name'),
@@ -82,6 +98,24 @@ class toursController extends Controller
     }
     public function update(Request $request, Tour $tour)
     {
+      $data = $request->all();
+
+      $rules = array(
+       'name' => 'required' ,
+        'first_scene' => 'required',
+        'author'  => 'required',
+        'fade_duration' => 'required'   
+      );
+    
+      $valida = validator::make($data,$rules);
+
+      if($valida->fails())
+      {
+        return redirect()->back()
+              ->withErrors($valida->errors())
+              ->WithInput($data);
+
+      }
         $tour->name = $request->get('name');
         $tour->first_scene = $request->get('first_scene');
         $tour->author = $request->get('author');

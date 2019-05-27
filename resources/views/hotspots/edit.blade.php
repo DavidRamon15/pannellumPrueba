@@ -34,7 +34,7 @@ function seleccionTipo()
       <div class="panel-heading">Agregar una Escena</div>
         <div class="panel-body">
        
-             
+             @include('admin.partials.messagesError')
               <form id='form' action="{{route('update_hotspot_path',$hotspot->id )}}" method="POST">
                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <input type="hidden" name="_method" value="PUT">

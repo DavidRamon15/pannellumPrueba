@@ -31,10 +31,11 @@ function seleccionTipo()
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
     <div class="panel panel-default">
-      <div class="panel-heading">Agregar una Escena</div>
+      <div class="panel-heading"><h2>Agregar un Hotspots</h2></div>
         <div class="panel-body">
        
-             
+            <!-- @include('admin.partials.messagesError')-->
+
               <form id='form' action="{{route('store_hotspot_path' )}}" method="POST">
                   {{ csrf_field() }}
                  
@@ -57,7 +58,7 @@ function seleccionTipo()
 
                   
                   <div class="form-group" id="div_scene_id" >
-                    <label>Scene_id:
+                    <label>Selecciona el nombre de la Escena a la cual quieres saltar :
                       <select id="scene_id" name="scene_id">
                         <?php foreach ($escenas as $esc): ?>
                            <option value="{{$esc->name}}">{{$esc->name}}</option>
@@ -68,7 +69,7 @@ function seleccionTipo()
                   </div>
 
 
-                    <input type="hidden" class="form-control" id="id_imagen" name="id_imagen" value='{{ $escena->id_escena }}'  readonly>
+                    <input type="hidden" class="form-control" id="id_imagen" name="id_imagen" value='{{ $escena->id}}'  readonly>
          
                 <input type="hidden" class="form-control" id="pitch" name="pitch" value="{{ $localizacion['pitch'] }}"  readonly>
                 <input type="hidden" class="form-control" id="yaw" name="yaw" value="{{ $localizacion['yaw'] }}"  readonly>

@@ -1,7 +1,11 @@
 @extends('layouts.app')
 @section('content')
 
+    
 <h2> Crear Tour</h2>
+
+
+@include('admin.partials.messagesError')
 
 <form action="{{route('store_tour_path')}}" method="POST">
 	{{ csrf_field() }}

@@ -10,6 +10,7 @@
    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <style>
     #panorama {
+       
         height: 95vh;
     }
     </style>
@@ -17,11 +18,7 @@
 <body>
  
 <div id="panorama"></div>
-<?php 
 
-
-echo (count($escenas));
-?>
 <script>
    
    
@@ -35,8 +32,9 @@ pannellum.viewer('panorama', {
 
     echo( " 'default': {
         'firstScene': '".$tour->first_scene."',
-        'author': 'Matthew Petroff',
-        'sceneFadeDuration': 1000
+        'author': '".$tour->author."',
+        'sceneFadeDuration': 1000,
+        'autoLoad': true
     },
 
     'scenes': {

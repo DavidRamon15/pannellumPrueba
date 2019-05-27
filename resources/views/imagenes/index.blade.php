@@ -4,6 +4,7 @@
 <h1>Imagenes  del Tour </h1>
 <div class="row" >
 	<div class="col-md-12 ">
+		<a type="button" href="{{ route( 'tours_path',) }}" class="btn btn-info float-left mb-2">Tours</a>
 		<a type="button" href="{{ route( 'create_imagenes_path',$tour->id ) }}" class="btn btn-success float-right mb-2">Introducir Imagen</a>
 		<table class="table table-dark" style="  border: 1px solid-black">
 		  <thead>
@@ -15,7 +16,7 @@
 		      <th scope="col">Hfov</th>
 		      <th scope="col">Pitch</th>
 		      <th scope="col">Yaw</th>
-		      <th scope="col">type</th>
+		      
 		      <th scope="col">Panorama</th>
 		      <th scope="col">Modificar</th>
 		      <th scope="col">Modificar PitchYaw</th>
@@ -37,7 +38,7 @@
 			      <td>{{$escena->hfov}}</td>
 			     <td>{{$escena->pitch}}</td>
 			     <td>{{$escena->yaw}}</td>
-			      <td>{{$escena->type}}</td>
+			    
 			     <td>{{$escena->panorama}}</td>
 			   	 <td><a type="button" 
 			   	 	class="btn btn-primary" 
@@ -56,7 +57,7 @@
 				<button type="submit" class="btn btn-danger ">Delete</button>
 
 				</form></td>
-				 <td><a type="button" class="btn btn-primary" href="{{route('hotspots_path',$escena->id)}}">Hotspots</a></td>
+				 <td><a type="button" class="btn btn-warning" href="{{route('hotspots_path',$escena->id)}}">Hotspots</a></td>
 			    
 		      </tr>
 		    

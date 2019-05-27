@@ -2,7 +2,7 @@
 @section('content')
 
 <h2> Modificar Tour</h2>
-
+@include("admin.partials.messagesError")
 <form action="{{route('update_tour_path',['tour'=> $tour->id])}}" method="POST">
 	{{ csrf_field() }}
 	{{ method_field('PUT') }}

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\imagenes;
 use App\hotspots;
 use App\tour;
+use Illuminate\Support\Facades\Validator;
 class hotspotsController extends Controller
 {
     public function index($id)
@@ -20,14 +21,31 @@ class hotspotsController extends Controller
     {
     	$escena = imagenes::find($id);
 
-      
-
-
       return view('hotspots.createPitchYaw',compact('escena'));
 
     }
     public function store(Request $request )
     {
+       /* 
+        $data = $request->all();
+
+      $rules = array(
+     'pitch' => 'required',
+     'yaw' => 'required',
+     'text' => 'required',
+     'imagenes_id' => 'required' 
+      );
+    
+      $valida = validator::make($data,$rules);
+
+        
+      if($valida->fails())
+      {
+        return redirect()->back()
+              ->withErrors($valida->errors())
+              ->WithInput($data);
+
+      }*/
 
         if(request('url') == "")
         {
@@ -88,7 +106,28 @@ class hotspotsController extends Controller
     {
        
  
-      
+           $data = $request->all();
+
+      $rules = array(
+     'pitch' => 'required',
+     'yaw' => 'required',
+     'text' => 'required',
+     'url' => 'required',
+     'scene_id' => 'required',
+      );
+    
+      $valida = validator::make($data,$rules);
+
+        
+      if($valida->fails())
+      {
+        return redirect()->back()
+              ->withErrors($valida->errors())
+              ->WithInput($data);
+
+      }
+
+
        $hotspot = hotspots::find($id);
         
         
@@ -117,6 +156,7 @@ class hotspotsController extends Controller
         $tour = tour::find($escena->id_tour);
        $escenas = $tour->imagenes->all();
     
+      
 
         return view('hotspots.create',compact('localizacion','escenas','escena'));
     }

@@ -4,6 +4,7 @@
 <h1>Hotspots De la Escena</h1>
 <div class="row" >
 	<div class="col-md-12">
+				<a type="button" href="{{ route( 'imagenes_path', $escena->id_tour) }}" class="btn btn-info float-left mb-2">Imagenes</a>
 
 		<a type="button" href="{{ route( 'create_hotspot_path', $escena->id) }}" class="btn btn-success float-right mb-2">Crear Hotspot</a>
 
